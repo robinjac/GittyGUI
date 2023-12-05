@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "elmish-land": {
+      "version": "0.1.25-alpha.25",
+      "commands": [
+        "elmish-land"
+      ]
+    }
+  }
+}
