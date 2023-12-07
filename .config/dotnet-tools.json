@@ -2,10 +2,10 @@
   "version": 1,
   "isRoot": true,
   "tools": {
-    "elmish-land": {
-      "version": "0.1.25-alpha.25",
+    "fable": {
+      "version": "4.5.0",
       "commands": [
-        "elmish-land"
+        "fable"
       ]
     }
   }
