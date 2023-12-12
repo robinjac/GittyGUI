@@ -6,21 +6,21 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="src/Routes.fs"/>
-        <Compile Include="src/Shared.fs"/>
-        <Compile Include="src/Pages/Home/Page.fs"/>
-        <Compile Include="src/App.fs"/>
+        <Compile Include="src/Routes.fs" />
+        <Compile Include="src/Shared.fs" />
+        <Compile Include="src/Pages/Home/Page.fs" />
+        <Compile Include="src/App.fs" />
         <Content Include="global.json" />
         <Content Include="index.html" />
         <Content Include="package.json" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Fable.Elmish.HMR" Version="7.0.0" />
-        <PackageReference Include="Fable.Elmish.React" Version="4.0.0" />
-        <PackageReference Include="Feliz" Version="2.7.0" />
-        <PackageReference Include="Feliz.Router" Version="4.0.0" />
-        <PackageReference Include="Elmish" Version="4.1.0"/>
+        <PackageReference Include="Fable.Elmish.HMR" Version="7.*" />
+        <PackageReference Include="Fable.Elmish.React" Version="4.*" />
+        <PackageReference Include="Feliz" Version="2.*" />
+        <PackageReference Include="Feliz.Router" Version="4.*" />
+        <PackageReference Include="Elmish" Version="4.*" />
     </ItemGroup>
 
 </Project>
