@@ -2,13 +2,14 @@
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
-        <LangVersion>5.0</LangVersion>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
         <Compile Include="src/Routes.fs" />
         <Compile Include="src/Shared.fs" />
         <Compile Include="src/Pages/Home/Page.fs" />
+        <Compile Include="src/Pages/TestPage/Page.fs" />
         <Compile Include="src/App.fs" />
         <Content Include="global.json" />
         <Content Include="index.html" />

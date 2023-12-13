@@ -30,6 +30,7 @@ open GittyGUI.Pages
 [<RequireQualifiedAccess>]
 type Page =
     | Home of GittyGUI.Pages.Home.Page.Model
+    | TestPage of GittyGUI.Pages.TestPage.Page.Model
     | NotFound
 
 type Model = {
@@ -42,6 +43,7 @@ type Msg =
 | SharedMsg of Shared.Msg
 | RouteChanged of Route
 | HomeMsg of GittyGUI.Pages.Home.Page.Msg
+| TestPageMsg of GittyGUI.Pages.TestPage.Page.Msg
 
 let init () =
     let initialUrl = Route.parse (Router.currentUrl ())
@@ -66,6 +68,8 @@ let init () =
     match initialUrl with
     | Route.Home ->
         initPage GittyGUI.Pages.Home.Page.init () Page.Home HomeMsg
+    | Route.TestPage ->
+        initPage GittyGUI.Pages.TestPage.Page.init () Page.TestPage TestPageMsg
     | Route.NotFound ->
         {
             defaultModel with
@@ -98,6 +102,8 @@ let update (msg: Msg) (model: Model) =
         match nextRoute with
         | Route.Home  ->
             changeRoute GittyGUI.Pages.Home.Page.init () Page.Home HomeMsg
+        | Route.TestPage  ->
+            changeRoute GittyGUI.Pages.TestPage.Page.init () Page.TestPage TestPageMsg
         | Route.NotFound ->
             {
                 model with
@@ -107,6 +113,8 @@ let update (msg: Msg) (model: Model) =
             Cmd.none
     | HomeMsg msg', Page.Home model' ->
         updatePage GittyGUI.Pages.Home.Page.update msg' model' Page.Home HomeMsg
+    | TestPageMsg msg', Page.TestPage model' ->
+        updatePage GittyGUI.Pages.TestPage.Page.update msg' model' Page.TestPage TestPageMsg
     | msg', model' ->
         printfn $"Unhandled App.Msg and CurrentPage.Model. Got\nMsg:\n%A{msg'}\nCurrentPage.Model:\n%A{model'}"
         model, Cmd.none
@@ -115,6 +123,7 @@ let view (model: Model) (dispatch: Msg -> unit) =
     let currentPageView =
         match model.CurrentPage with
         | Page.Home m -> GittyGUI.Pages.Home.Page.view m (HomeMsg >> dispatch)
+        | Page.TestPage m -> GittyGUI.Pages.TestPage.Page.view m (TestPageMsg >> dispatch)
         | Page.NotFound -> Html.h1 "Page not found"
 
     React.router [
@@ -127,6 +136,7 @@ let subscribe model =
         Sub.map "Shared_App" SharedMsg [ Shared.subscribeShared id ]
         match model.CurrentPage with
         | Page.Home m -> Sub.map "Home" HomeMsg (GittyGUI.Pages.Home.Page.subscribe m)
+        | Page.TestPage m -> Sub.map "TestPage" TestPageMsg (GittyGUI.Pages.TestPage.Page.subscribe m)
         | Page.NotFound -> Sub.none
     ]
 
