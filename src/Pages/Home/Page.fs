@@ -6,7 +6,8 @@ open Elmish
 
 type Model = unit
 
-type Msg = | NoOp
+type Msg = 
+    | ClickMeWasClicked
 
 let init (): Model * Cmd<Msg> =
     (),
@@ -14,9 +15,16 @@ let init (): Model * Cmd<Msg> =
 
 let update (msg: Msg) (model: Model): Model * Cmd<Msg> =
     match msg with
-    | NoOp -> model, Cmd.none
+    | ClickMeWasClicked -> model, Cmd.none
 
 let view (model: Model) (dispatch: Msg -> unit): ReactElement =
-    Html.text "Home"
+    Html.div [
+        prop.style [ style.display.flex ; style.flexDirection.column ]
+        prop.children [
+            Html.div [ prop.text "Home" ]
+            Html.button [ prop.text "click me" ; prop.onClick (fun _ -> dispatch ClickMeWasClicked) ]
+        ]
+    ]
+    
 
 let subscribe (model: Model) : (string list * ((Msg -> unit) -> IDisposable)) list = []
