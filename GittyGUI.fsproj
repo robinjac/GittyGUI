@@ -9,6 +9,7 @@
         <Compile Include="src/Routes.fs" />
         <Compile Include="src/Shared.fs" />
         <Compile Include="src/Pages/Home/Page.fs" />
+        <Compile Include="src/Pages/Test/Layout.fs" />
         <Compile Include="src/Pages/Test/Page.fs" />
         <Compile Include="src/Pages/Test/Nested/Page.fs" />
         <Compile Include="src/App.fs" />
