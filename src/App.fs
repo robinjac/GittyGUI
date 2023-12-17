@@ -38,7 +38,7 @@ type Layout =
     Test
 
 let layoutContext: Map<string, Route -> ReactElement -> ReactElement> =
-    Map [("Test", Test.Layout.view)]
+    Map [("Test", Test.Layout.view); ("Test_Nested", Test.Layout.view)]
 
 type Model = {
     Shared: Shared.Model
