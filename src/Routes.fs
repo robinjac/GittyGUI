@@ -24,22 +24,26 @@ open Feliz.Router
 [<RequireQualifiedAccess>]
 type Route =
     | Home
-    | TestPage
+    | Test_Nested
+    | Test
     | NotFound
 
 module Route =
     let asUrl =
         function
         | Route.Home  -> $"#/"
-        | Route.TestPage  -> $"#/TestPage"
+        | Route.Test_Nested  -> $"#/Test/Nested"
+        | Route.Test  -> $"#/Test"
         | Route.NotFound -> "notFound"
 
     let parse (xs: string list) =
         match xs |> List.map (fun x -> x.ToLowerInvariant ()) with
         | []
         | [] -> Route.Home 
-        | [ "testpage" ]
-        | [ "testpage"; Route.Query _ ] -> Route.TestPage 
+        | [ "test"; "nested" ]
+        | [ "test"; "nested"; Route.Query _ ] -> Route.Test_Nested 
+        | [ "test" ]
+        | [ "test"; Route.Query _ ] -> Route.Test 
         | other ->
             printfn "Route not found: '%A'" other
             Route.NotFound
