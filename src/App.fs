@@ -30,15 +30,9 @@ open GittyGUI.Pages
 [<RequireQualifiedAccess>]
 type Page =
     | Home of GittyGUI.Pages.Home.Page.Model
-    | Test_Nested of GittyGUI.Pages.Test_Nested.Page.Model
+    | Test_Nested of GittyGUI.Pages.Test.Nested.Page.Model
     | Test of GittyGUI.Pages.Test.Page.Model
     | NotFound
-
-type Layout =
-    Test
-
-let layoutContext: Map<string, Route -> ReactElement -> ReactElement> =
-    Map [("Test", Test.Layout.view); ("Test_Nested", Test.Layout.view)]
 
 type Model = {
     Shared: Shared.Model
@@ -50,9 +44,8 @@ type Msg =
 | SharedMsg of Shared.Msg
 | RouteChanged of Route
 | HomeMsg of GittyGUI.Pages.Home.Page.Msg
-| Test_NestedMsg of GittyGUI.Pages.Test_Nested.Page.Msg
+| Test_NestedMsg of GittyGUI.Pages.Test.Nested.Page.Msg
 | TestMsg of GittyGUI.Pages.Test.Page.Msg
-
 
 let init () =
     let initialUrl = Route.parse (Router.currentUrl ())
@@ -78,7 +71,7 @@ let init () =
     | Route.Home ->
         initPage GittyGUI.Pages.Home.Page.init () Page.Home HomeMsg
     | Route.Test_Nested ->
-        initPage GittyGUI.Pages.Test_Nested.Page.init () Page.Test_Nested Test_NestedMsg
+        initPage GittyGUI.Pages.Test.Nested.Page.init () Page.Test_Nested Test_NestedMsg
     | Route.Test ->
         initPage GittyGUI.Pages.Test.Page.init () Page.Test TestMsg
     | Route.NotFound ->
@@ -114,7 +107,7 @@ let update (msg: Msg) (model: Model) =
         | Route.Home  ->
             changeRoute GittyGUI.Pages.Home.Page.init () Page.Home HomeMsg
         | Route.Test_Nested  ->
-            changeRoute GittyGUI.Pages.Test_Nested.Page.init () Page.Test_Nested Test_NestedMsg
+            changeRoute GittyGUI.Pages.Test.Nested.Page.init () Page.Test_Nested Test_NestedMsg
         | Route.Test  ->
             changeRoute GittyGUI.Pages.Test.Page.init () Page.Test TestMsg
         | Route.NotFound ->
@@ -127,7 +120,7 @@ let update (msg: Msg) (model: Model) =
     | HomeMsg msg', Page.Home model' ->
         updatePage GittyGUI.Pages.Home.Page.update msg' model' Page.Home HomeMsg
     | Test_NestedMsg msg', Page.Test_Nested model' ->
-        updatePage GittyGUI.Pages.Test_Nested.Page.update msg' model' Page.Test_Nested Test_NestedMsg
+        updatePage GittyGUI.Pages.Test.Nested.Page.update msg' model' Page.Test_Nested Test_NestedMsg
     | TestMsg msg', Page.Test model' ->
         updatePage GittyGUI.Pages.Test.Page.update msg' model' Page.Test TestMsg
     | msg', model' ->
@@ -138,18 +131,13 @@ let view (model: Model) (dispatch: Msg -> unit) =
     let currentPageView =
         match model.CurrentPage with
         | Page.Home m -> GittyGUI.Pages.Home.Page.view m (HomeMsg >> dispatch)
-        | Page.Test_Nested m -> GittyGUI.Pages.Test_Nested.Page.view m (Test_NestedMsg >> dispatch)
+        | Page.Test_Nested m -> GittyGUI.Pages.Test.Nested.Page.view m (Test_NestedMsg >> dispatch)
         | Page.Test m -> GittyGUI.Pages.Test.Page.view m (TestMsg >> dispatch)
         | Page.NotFound -> Html.h1 "Page not found"
 
-    let currentLayoutContext =
-        Map.tryFind (Route.asString model.CurrentRoute) layoutContext
-            |> Option.map (fun viewLayout -> viewLayout model.CurrentRoute currentPageView)
-            |> Option.defaultValue currentPageView
-
     React.router [
         router.onUrlChanged (Route.parse >> RouteChanged >> dispatch)
-        router.children [ currentLayoutContext ]
+        router.children [ currentPageView ]
     ]
 
 let subscribe model =
@@ -157,7 +145,7 @@ let subscribe model =
         Sub.map "Shared_App" SharedMsg [ Shared.subscribeShared id ]
         match model.CurrentPage with
         | Page.Home m -> Sub.map "Home" HomeMsg (GittyGUI.Pages.Home.Page.subscribe m)
-        | Page.Test_Nested m -> Sub.map "Test_Nested" Test_NestedMsg (GittyGUI.Pages.Test_Nested.Page.subscribe m)
+        | Page.Test_Nested m -> Sub.map "Test_Nested" Test_NestedMsg (GittyGUI.Pages.Test.Nested.Page.subscribe m)
         | Page.Test m -> Sub.map "Test" TestMsg (GittyGUI.Pages.Test.Page.subscribe m)
         | Page.NotFound -> Sub.none
     ]

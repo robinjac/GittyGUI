@@ -36,13 +36,6 @@ module Route =
         | Route.Test  -> $"#/Test"
         | Route.NotFound -> "notFound"
 
-    let asString =
-        function
-        | Route.Home  -> "Home"
-        | Route.Test_Nested  -> "Test_Nested"
-        | Route.Test  -> "Test"
-        | Route.NotFound -> "NotFound"
-
     let parse (xs: string list) =
         match xs |> List.map (fun x -> x.ToLowerInvariant ()) with
         | []
