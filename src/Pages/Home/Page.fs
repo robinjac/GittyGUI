@@ -1,10 +1,10 @@
-module ``Testing-Elmish-Land``.Pages.Home.Page
+module TestingElmishLand.Pages.Home.Page
 
 open System
 open Feliz
 open Elmish
-open ``Testing-Elmish-Land``
-open ``Testing-Elmish-Land``.Shared
+open TestingElmishLand
+open TestingElmishLand.Shared
 
 type Model = unit
 

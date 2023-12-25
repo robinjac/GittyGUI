@@ -1,4 +1,4 @@
-module ``Testing-Elmish-Land``.Shared
+module TestingElmishLand.Shared
 
 open System
 open System.Collections.Generic
