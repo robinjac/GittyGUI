@@ -1,7 +1,0 @@
-node_modules
-fable_modules
-obj
-bin
-*.fs.js
-
-.fake
