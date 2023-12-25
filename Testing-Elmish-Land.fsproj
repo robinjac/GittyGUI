@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="src/Shared.fs"/>
+        <Compile Include="src/Pages/Home/Page.fs"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include=".elmish-land/Base/Base.fsproj" />
+    </ItemGroup>
+</Project>

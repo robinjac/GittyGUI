@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "elmish-land": {
+      "version": "1.0.0-alpha.96",
+      "commands": [
+        "elmish-land"
+      ]
+    },
+    "fable": {
+      "version": "4.9.0",
+      "commands": [
+        "fable"
+      ]
+    }
+  }
+}
